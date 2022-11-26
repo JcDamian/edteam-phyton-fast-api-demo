@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       
       - name: Install dependencies
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: docker build 
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ steps.image.outputs.tag }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ github.sha }} .
 
       - name: docker login
         uses: docker/login-action@v2
@@ -43,10 +43,10 @@ jobs:
       
       - name: docker push 
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ steps.image.outputs.tag }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ github.sha }}
       
     outputs:
-        image_tag: ${{ steps.image.outputs.tag }}
+        image_tag: ${{ github.sha }}
 
   cd:
     runs-on: ubuntu-latest
