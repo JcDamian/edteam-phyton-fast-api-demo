@@ -1,9 +1,10 @@
-name: CI
+name: EDTEAM FastAPI demo
 
 on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   ci:
