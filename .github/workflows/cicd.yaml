@@ -33,7 +33,7 @@ jobs:
 
       - name: docker build 
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-fast-api:${{ steps.image.outputs.tag }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ steps.image.outputs.tag }} .
 
       - name: docker login
         uses: docker/login-action@v2
@@ -43,7 +43,7 @@ jobs:
       
       - name: docker push 
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/python-fast-api:${{ steps.image.outputs.tag }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo:${{ steps.image.outputs.tag }}
       
     outputs:
         image_tag: ${{ steps.image.outputs.tag }}
@@ -56,7 +56,7 @@ jobs:
       - name: deploy DEMO API
         uses: appleboy/ssh-action@v0.1.4
         env:
-          DOCKER_IMAGE: "${{ secrets.DOCKER_USERNAME }}/python-fast-api"
+          DOCKER_IMAGE: "${{ secrets.DOCKER_USERNAME }}/edteam-fastapi-demo"
           TAG: ${{ needs.ci.outputs.image_tag }}
         with:
           host: ${{ secrets.SERVERS }}
